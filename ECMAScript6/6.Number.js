@@ -129,3 +129,61 @@
 // 这就是说，对于那些很大的数的乘法，低位数值往往都是不精确的，Math.imul方法可以返回正确的低位数值。
 
 // ### 6. ath.fround方法 返回一个数的32位单精度浮点数形式。
+// 主要作用，是将64位双精度浮点数转为32位单精度浮点数。如果小数的精度超过24个二进制位，返回值就会不同于原值
+// Math.fround = Math.fround || function (x) {
+//   return new Float32Array([x])[0];
+// };
+
+// ### 7. Math.hypot方法返回所有参数的平方和的平方根
+// console.log(
+// Math.hypot(3, 4)       // 5
+// )
+
+
+
+// ## 8. 对数方法
+
+// （1） Math.expm1()
+// 返回 ex - 1，即Math.exp(x) - 1
+// Math.expm1 = Math.expm1 || function(x) {
+//   return Math.exp(x) - 1;
+// };
+
+// （2）Math.log1p()
+// 返回1 + x的自然对数，即Math.log(1 + x)
+// Math.log1p = Math.log1p || function(x) {
+//   return Math.log(1 + x);
+// };
+
+// （3）Math.log10()
+// 返回以 10 为底的x的对数
+// Math.log10 = Math.log10 || function(x) {
+//   return Math.log(x) / Math.LN10;
+// };
+
+// （4）Math.log2()
+// Math.log2()返回以 2 为底的x的对数
+// Math.log2 = Math.log2 || function(x) {
+//   return Math.log(x) / Math.LN2;
+// };
+
+// ## 9. 双曲函数方法 ES6add
+// Math.sinh(x) 返回x的双曲正弦（hyperbolic sine）
+// Math.cosh(x) 返回x的双曲余弦（hyperbolic cosine）
+// Math.tanh(x) 返回x的双曲正切（hyperbolic tangent）
+// Math.asinh(x) 返回x的反双曲正弦（inverse hyperbolic sine）
+// Math.acosh(x) 返回x的反双曲余弦（inverse hyperbolic cosine）
+// Math.atanh(x) 返回x的反双曲正切（inverse hyperbolic tangent）
+
+// ## 10. 指数运算符 ES6add
+let a = 2,b=5;
+a **= 2;
+b **= 3;
+console.log(
+  2**3,//8
+  2**5,//32
+  2 ** 3 ** 2,//512,多个连用时,从右开始
+  2 ** (3 ** 2),//512,**= 理同 += 、 -=
+  a,b//4 125
+)
+// 注意，V8 引擎的指数运算符与Math.pow的实现不相同，对于特别大的运算结果，两者会有细微的差异。

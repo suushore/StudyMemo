@@ -131,5 +131,37 @@ Math.max(...[14, 3, 77])
 // 0 "a"
 // 1 "b"
 
+// console.log(
+//   ['a', 'b'].entries(),//Object [Array Iterator] {}
+//   ['a', 'b'].keys(),//Object [Array Iterator] {}
+//   ['a', 'b'].values(),//Object [Array Iterator] {}
+// )
 
-// ## 7.数组实例的 includes()
+
+// ## 8.数组实例的 includes()
+// 返回一个布尔值，表示某个数组是否包含给定的值，与字符串的includes方法类似。
+// [1, 2, 3].includes(2)     // true
+// [1, 2, 3].includes(4)     // false
+// [1, 2, NaN].includes(NaN) // true
+// indexOf方法有两个缺点，一是不够语义化，二是会导致对NaN的误判。
+
+
+// ## 9.数组实例的 flat()，flatMap()
+
+// .flat() 将嵌套数组转化为一维的数组，返回一个新数组。
+// .flat(i),i表示层数，默认为1,1~Infinity
+[1, 2, [3, [4, 5]]].flat(2)//[1, 2, 3, 4, 5]
+
+// .flatMap() 等同于.Map()+.flat(),只能展开一层数组,第一个参数是一个遍历函数,第二个参数用来绑定遍历函数的this。
+// arr.flatMap(function callback(currentValue[, index[, array]]) {
+//   // ...
+// }[, thisArg])
+
+
+// ## 10.数组的空位
+// Array(3) // [, , ,]
+// 不同于，[undefined, undefined, undefined]
+0 in [undefined, undefined, undefined] // true
+0 in [, , ,] // false
+// ES6 明确将空位转为undefined。
+// 由于空位的处理规则非常不统一，所以建议避免出现空位。

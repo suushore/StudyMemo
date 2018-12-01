@@ -114,7 +114,7 @@ git config --list
 
 ## 五、克隆代码
 
-​    进入gitlab系统，找到项目，找到一个类似clone and download的地方，切换为Use SSH，类似链接 git@gitlab.xxxxxxxxx.cxm:xxx/test.git ，即为项目路径，复制。
+​    进入gitlab系统，找到项目，找到一个类似clone and download的地方，切换为Use SSH，类似链接 git@gitlab.xxxxxxxxx.xxx:xxx/test.git ，即为项目路径，复制。
 
 ​    进入你的计算机，进到你平时存放项目的目录，右键->git bash here,输入`git clone git@gitlab.xxxxxxxxx.com:XXXX/test.git`，即可（有问题就一路輸入yes）。
 

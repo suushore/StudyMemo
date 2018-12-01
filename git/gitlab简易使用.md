@@ -6,7 +6,7 @@
 
 ### gitlab和github的区别
 
-​    和GitHub  [GitLab](https://github.com/gitlabhq/gitlabhq)一样属于第三方基于Git开发的作品，免费且开源（<https://github.com/gitlabhq/gitlabhq> 基于MIT协议），与Github类似，可以注册用户，任意提交你的代码，添加SSHKey等等。不同的是，**GitLab**是**可以部署到自己的服务器上**，数据库等一切信息都掌握在自己手上，**适合团队内部协作开发**，你总不可能把团队内部的智慧总放在别人的服务器上吧？简单来说可把GitLab看作个人版的GitHub。
+​    和GitHub一样[GitLab](https://github.com/gitlabhq/gitlabhq)属于第三方基于Git开发的作品，免费且开源（<https://github.com/gitlabhq/gitlabhq> 基于MIT协议），与Github类似，可以注册用户，任意提交你的代码，添加SSHKey等等。不同的是，**GitLab**是**可以部署到自己的服务器上**，数据库等一切信息都掌握在自己手上，**适合团队内部协作开发**，你总不可能把团队内部的智慧总放在别人的服务器上吧？简单来说可把GitLab看作个人版的GitHub。
 
 因此，兩者操作上（限非管理员）基本完全一致，熟悉GitHub的同事可以不用往下看了。
 
@@ -62,7 +62,7 @@
 ssh-keygen -t rsa -C  "sushore@outlook.com"
 ```
 
-，这个邮箱要换成你自己的邮箱
+这个邮箱要换成你自己的邮箱
 
 #### 3)、配置SSH到GitLab账号
 
@@ -114,7 +114,7 @@ git config --list
 
 ## 五、克隆代码
 
-​    进入gitlab系统，找到项目，找到一个类似clone and download的地方，切换为Use SSH，类似链接 git@gitlab.xxxxxxxxx.xxx:xxx/test.git ，即为项目路径，复制。
+​    进入gitlab系统，找到项目，找到一个类似clone and download的地方，切换为Use SSH，类似链接 `git@gitlab.xxxxxxxxx.xxx:com/test.git`，即为项目路径，复制。
 
 ​    进入你的计算机，进到你平时存放项目的目录，右键->git bash here,输入`git clone git@gitlab.xxxxxxxxx.com:XXXX/test.git`，即可（有问题就一路輸入yes）。
 
@@ -163,7 +163,8 @@ git push origin --delete master//删除指定的远程分支
 
 git push origin    //将当前分支推送到origin主机的对应分支，如果当前分支只有一个追踪分支，那么主机名都可以省略，简化为 git push
 
-git push -u origin master //如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数用git push。不带任何参数的git push，默认只推送当前分支，这叫做simple方式。
+git push -u origin master //如果当前分支与多个主机存在追踪关系，则可以使用-u选项指定一个默认主机，这样后面就可以不加任何参数用git push。
+不带任何参数的git push，默认只推送当前分支，这叫做simple方式。
 还有一种matching方式，会推送所有有对应的远程分支的本地分支。GIT默认采用simple方式。
 
 ```

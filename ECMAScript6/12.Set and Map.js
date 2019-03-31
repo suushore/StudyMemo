@@ -144,3 +144,4 @@ objToStrMap({yes: true, no: false})
 // 二是无法清空，即不支持clear方法。
 // 因此，WeakMap只有四个方法可用：get()、set()、has()、delete()。
 // 解决内存泄漏
+

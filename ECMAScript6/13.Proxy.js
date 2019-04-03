@@ -65,3 +65,78 @@
 // '_prop' in proxy // false
 // has拦截只对in运算符生效，对for...in循环不生效
 // ## 2.5 construct方法用于拦截new命令
+// var handler = {
+//   construct (target, args, newTarget) {
+//     return new target(...args);
+//   }
+// };
+// ## 2.6 deleteProperty方法用于拦截delete操作
+// var handler = {
+//   deleteProperty (target, key) {
+//     if (key[0] === '_') {
+//       throw new Error(`Invalid attempt to ${action} private "${key}" property`);
+//     }
+//     delete target[key];
+//     return true;
+//   }
+// };
+// ## 2.7 defineProperty方法拦截了Object.defineProperty操作
+// var handler = {
+//   defineProperty (target, key, descriptor) {
+//     return false;
+//   }
+// };
+// var target = {};
+// var proxy = new Proxy(target, handler);
+// proxy.foo = 'bar' // 不会生效
+// ## 2.8 getOwnPropertyDescriptor方法拦截Object.getOwnPropertyDescriptor()
+// ## 2.9 getPrototypeOf方法主要用来拦截获取对象原型。拦截下面这些操作:
+// Object.prototype.__proto__
+// Object.prototype.isPrototypeOf()
+// Object.getPrototypeOf()
+// Reflect.getPrototypeOf()
+// instanceof
+// var proto = {};
+// var p = new Proxy({}, {
+//   getPrototypeOf(target) {
+//     return proto;
+//   }
+// });
+// Object.getPrototypeOf(p) === proto // true
+// ## 2.10 isExtensible方法拦截Object.isExtensible操作
+// ## 2.11 ownKeys方法用来拦截对象自身属性的读取操作。具体来说，拦截以下操作
+// Object.getOwnPropertyNames()
+// Object.getOwnPropertySymbols()
+// Object.keys()
+// for...in循环
+// ## 2.12 preventExtensions方法拦截Object.preventExtensions()
+// ## 2.13 setPrototypeOf方法主要用来拦截Object.setPrototypeOf方法
+
+// # 3.Proxy.revocable()
+//     返回一个可取消的 Proxy 实例
+// let target = {};
+// let handler = {};
+// let {proxy, revoke} = Proxy.revocable(target, handler);
+// proxy.foo = 123;
+// proxy.foo // 123
+// revoke();
+// proxy.foo // TypeError: Revoked
+// 使用场景是，目标对象不允许直接访问，
+// 必须通过代理访问，一旦访问结束，就收回代理权，不允许再次访问。
+
+// # 4.this 问题
+// Proxy 代理的情况下，目标对象内部的this关键字会指向 Proxy 代理
+// const target = new Date();
+// const handler = {};
+// const proxy = new Proxy(target, handler);
+// proxy.getDate();
+// // TypeError: this is not a Date object.
+// // 这时，this绑定原始对象，就可以解决这个问题
+// const handler = {
+//   get(target, prop) {
+//     if (prop === 'getDate') {
+//       return target.getDate.bind(target);
+//     }
+//     return Reflect.get(target, prop);
+//   }
+// };

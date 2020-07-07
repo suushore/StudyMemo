@@ -1,0 +1,40 @@
+安装Manjaro之后
+1.更换源
+sudo pacman-mirrors -i -c China -m rank
+sudo pacman -Syy
+这样其实就可以了，
+但是安装某些软件的时候比如chrome，pacman是找不到的，所以推荐修改配置文件，并安装GPG key
+修改/etc/pacman.conf,在最后一行添加：
+[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
+（报错is read-only (add ! to override)，
+1，你要先强制退出
+：q！
+2，退出后在执行
+：sudo !!
+3,再次编辑你要编辑的内容
+vim ...
+4,再保存就可以了
+：wq!
+）
+然后，命令行运行：
+sudo pacman -S archlinuxcn-keyring  
+sduo pacman -Syyu（Passing two --refresh or -y flags will force a refresh of all package lists even if they appear to be up to date）
+
+2.卸载无用的自带软件
+sudo pacman -Rs steam-manjaro
+或者软件包管理器搜索office、steam，卸载
+
+3.安装需要的软件
+sudo pacman -S google-chrome
+sudo pacman -S vim
+sudo pacman -S git
+sudo pacman -S visual-studio-code-bin
+sudo pacman -S vlc
+sudo pacman -S deepin-screenshot
+sudo pacman -S wps-office ttf-wps-fonts
+sudo pacman -S net-tools
+sudo pacman -S aria2
+sudo pacman -S shadowsocks-qt5
+sudo pacman -S file-roller unrar unzip p7zip 

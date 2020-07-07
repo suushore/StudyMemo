@@ -50,19 +50,13 @@
 
 // var tmp = 123;
 // if (true) {
-//   tmp = 'abc'; // ReferenceError: tmp is not defined
-//   let tmp;
-// }
-
-// var tmp = 123;
-// if (true) {
 //   tmp = 'abc'; //OK
 // }
 
 // var tmp = 123;
 // if (true) {
-//   tmp = 'abc'; //ReferenceError: tmp is not defined
-//   console.log(tmp)
+//   tmp = 'abc';
+//   console.log(tmp) //ReferenceError: tmp is not defined
 //   let tmp;
 // }
 
@@ -111,12 +105,12 @@
 // 。。。同时，函数声明还会提升到所在的块级作用域的头部。
 
 // function f() {console.log('I am outside!');}
-// if (false) {
+// if (true) {
 //   function f() {
 //     console.log('I am inside!');
 //   }
 // }
-// f() //I am outside!
+// f() //I am inside!
 
 // function f() {console.log('I am outside!');} 
 // {
@@ -164,10 +158,16 @@
 // const PI = 3.1415;
 // console.log(PI) // 3.1415
 // PI = 3;//TypeError: Assignment to constant variable.
-
 // const PI;//SyntaxError: Missing initializer in const declaration
 
+// const arr = [1,2,3];
+// console.log(arr) // [1,2,3]
+// arr[0] = 3;
+// console.log(arr) // [ 3, 2, 3 ]
+// arr = [2,2,3]; //TypeError: Assignment to constant variable.
+
 // const实际上保证的，是变量指向的那个内存地址所保存的数据不得改动。对于复合类型的数据（主要是对象和数组），保存的只是一个指向实际数据的指针，const只能保证这个指针是固定的，至于它指向的数据结构是不是可变的，就完全不能控制了。
+
 // 如果真的想将对象冻结，应该使用Object.freeze方法。
 // 'use strict';
 // const foo = Object.freeze({});
@@ -177,6 +177,6 @@
 
 
 // 顶层对象,全局变量将与顶层对象的属性脱钩
-let a = 1;
-console.log(global.a)//undefined
-console.log(a)//1
+// let a = 1;
+// console.log(global.a)//undefined
+// console.log(a)//1

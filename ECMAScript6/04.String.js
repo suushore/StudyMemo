@@ -117,7 +117,6 @@ let s = 'Hello world!';
 
 // function aaa(literals, ...values) {
 //   // log(literals, ...values) //[ '<p>', ' has sent you a message.</p>' ]  '<script>alert("abc")</script>'
-//   // log(literals, ...values) //[ '<p>', ' has sent you a message.</p>' ]  ['<script>alert("abc")</script>']
 //   let output = "";
 //   let index;
 //   for (index = 0; index < values.length; index++) {
@@ -131,7 +130,7 @@ let s = 'Hello world!';
 // ### “标签模板”的一个重要应用，就是过滤 HTML 字符串，防止用户输入恶意内容
 // let sender = '<script>alert("abc")</script>';
 // let message =
-//   SaferHTML`<p>${sender} has sent you a message.</p>`;
+// SaferHTML`<p>${sender} has sent you a message.</p>`;
 
 // function SaferHTML(templateData) {
 //   // log(templateData)//[ '<p>', ' has sent you a message.</p>' ]
@@ -162,10 +161,11 @@ let s = 'Hello world!';
 // }
 
 // ### String.raw()
-let sender = 1;
-log(
-  String.raw`<p>${sender} has sent you \\n a message.</p>`//<p>1 has sent you \\n a message.</p>
-)
+// let sender = 1;
+// log(
+//   String.raw`<p>${sender} has sent you \\n a message.</p>`//<p>1 has sent you \\n a message.</p>
+// )
+
 // String.raw的代码实现基本如下。
 // String.raw = function (strings, ...values) {// line 118 已经实现，即为标签模板的一个封装函数
 //   let output = '';

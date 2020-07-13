@@ -1,18 +1,16 @@
 // #数值的扩展
 'use strict';
 
-
-// ## 1.二进制和八进制 新方法 add
+// ## 1.二进制和八进制 新方法
 // 前缀0b（或0B）和0o（或0O）。。。binary,octonary/octor,decimal,hexadecimal/hex
 // console.log(
 //   Number('0b111'),
 //   Number('0o10')
 // )//7 8
 
-
-// ## 2.// Number.isFinite(), Number.isNaN(),这两个新方法  只对数值有效  。
+// ## 2.// Number.isFinite(), Number.isNaN(),这两个新方法  只对数值有效。
 //Number.isFinite()对于非数值一律返回false, Number.isNaN()只有对于NaN才返回true，非NaN一律返回false。
-// 传统的  ES5  全局方法isFinite()和isNaN()先调用Number()将  非数值的值转为数值   ，再进行判断
+// 传统的ES5全局方法isFinite()和isNaN()先调用Number()将非数值的值转为数值，再进行判断
 // console.log(
 //   Number.isFinite(15),
 //   Number.isFinite(NaN),
@@ -20,7 +18,8 @@
 //   Number.isFinite(true),
 //   Number.isFinite(Infinity),
 //   Number.isFinite(-Infinity)
-// )//true false false false false false
+// )
+// true false false false false false
 // console.log(
 //   Number.isNaN(15),//false
 //   Number.isNaN("15"),//false
@@ -29,17 +28,13 @@
 //   Number.isNaN(-Infinity),//false
 //   Number.isNaN(-NaN),//true
 //   Number.isNaN(NaN),//true
-//   Number.isNaN('aaa' / 0), 
-//   //true
+//   'aaa' / 0, //NaN
+//   Number.isNaN('aaa' / 0),//true
+//   1 / 0, //Infinity
 //   Number.isNaN(1 / 0),//false
-//   'aaa' / 0,
-//   //NaN
-//   1 / 0,//Infinity
 // )
 
-
 // ## 3.全局方法parseInt()和parseFloat()，移植到Number对象上面,,,Number.parseInt(), Number.parseFloat()
-
 
 // ## 4.Number.isInteger() ,判断一个数值是否为整数
 // console.log(
@@ -128,7 +123,7 @@
 // 之所以需要部署这个方法，是因为 JavaScript 有精度限制，超过 2 的 53 次方的值无法精确表示。
 // 这就是说，对于那些很大的数的乘法，低位数值往往都是不精确的，Math.imul方法可以返回正确的低位数值。
 
-// ### 6. ath.fround方法 返回一个数的32位单精度浮点数形式。
+// ### 6. Math.fround方法 返回一个数的32位单精度浮点数形式。
 // 主要作用，是将64位双精度浮点数转为32位单精度浮点数。如果小数的精度超过24个二进制位，返回值就会不同于原值
 // Math.fround = Math.fround || function (x) {
 //   return new Float32Array([x])[0];

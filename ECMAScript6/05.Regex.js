@@ -1,7 +1,6 @@
 // #正则的扩展
 const { log } = console;
 
-
 // ## 1.声明
 // ES6中RegExp构造函数第一个参数是一个正则对象，可以用第二个参数指定修饰符。
 // log(
@@ -43,7 +42,7 @@ const { log } = console;
 // r3.exec(s),//[ 'aa_', index: 4, input: 'aaa_aa_a', groups: undefined ]
 // r4.exec(s),//[ 'aaa_', index: 0, input: 'aaa_aa_a', groups: undefined ]
 // r4.exec(s),//[ 'aa_', index: 4, input: 'aaa_aa_a', groups: undefined ]
-// 'a1a2a3'.match(/a\d/gy)//[ 'a1', 'a2', 'a3' ]
+// 'a1a2a3*a6'.match(/a\d/gy)//[ 'a1', 'a2', 'a3' ]
 // )
 
 // const TOKEN_Y = /\s*(\+|[0-9]+)\s*/y;
@@ -69,12 +68,12 @@ const { log } = console;
 
 // ## 5.新增属性
 // log(
-// /hello\d/u.unicode,//true
-// /hello\d/y.sticky,//true
-// /hello\d/ygiu.flags,//'giuy'
-// /hello\d/y.source,//'hello\\d'
+// /hello\d/u.unicode,// true
+// /hello\d/y.sticky,// true
+// /hello\d/ygiu.flags,// 'giuy'
+// /hello\d/y.source,// 'hello\d'
 // /foo.bar/.test('foo\nbar'),//false,代表任意的单个字符的.不匹配\n
-// /foo.bar/s.test('foo\nbar'),//false，dotAll模式，即点（dot）代表一切字符。
+// /foo.bar/s.test('foo\nbar'),//true，dotAll模式，即点（dot）代表一切字符。
 // /foo.bar/s.dotAll,//true
 // )
 
@@ -82,7 +81,7 @@ const { log } = console;
 // /\d+(?=%)/g.exec('112%222'),//'112',”先行断言“,前瞻，右为前。。比如只匹配百分号之前的数字
 // /\d+(?!%)/g.exec('112%222'),//'11',先行否定断言
 // /(?<=\$)\d+/.exec('Benjamin Franklin is on the $100 bill,not on the €90 bill'),//'100',后行断言,后顾，左侧为后。。比如匹配美元符号之后的数字
-// /(?<!\$)\d+/.exec('Benjamin Franklin is on the $ bill,not on the €90 bill'),//'90',//后行断言,ES2018新增。
+// /(?<!\$)\d+/.exec('Benjamin Franklin is on the $ bill,not on the €90 bill'),//'90',后行否定断言,ES2018新增。
 //“后行断言”的实现，需要先匹配/(?<=y)x/的x，然后再回到左边，匹配y的部分。
 //这种“先右后左”的执行顺序，与所有其他正则操作相反，导致了一些不符合预期的行为。
 // )
@@ -108,49 +107,46 @@ const { log } = console;
 
 // ## 7.具名组匹配
 //“具名组匹配”在圆括号内部，模式的头部添加“问号 + 尖括号 + 组名”（?<year>），然后就可以在exec方法返回结果的groups属性上引用该组名
-// let RE_DATE = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
-// let RE_DATE = /(\d{4})-(\d{2})-(\d{2})/;
-// const matchObj = RE_DATE.exec('1999-12-31');
-// const year = matchObj.groups.year; 
-// const month = matchObj.groups.month;
-// const day = matchObj.groups.day;
+// let RE_DATE1 = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+// let RE_DATE2 = /(\d{4})-(\d{2})-(\d{2})/;
+// const matchObj1 = RE_DATE1.exec('1999-12-31');
+// const matchObj2 = RE_DATE2.exec('1999-12-31');
+// log(matchObj1);
+// // [ '1999-12-31',
+// //   '1999',
+// //   '12',
+// //   '31',
+// //   index: 0,
+// //   input: '1999-12-31',
+// //   groups: [Object: null prototype] { year: '1999', month: '12', day: '31' } ]
+// //   如果无具名组 或者 具名组没有匹配,那么对应的groups对象属性会是 undefined。
+// log(matchObj2);
+// // [ '1999-12-31',       
+// //   '1999',
+// //   '12',
+// //   '31',
+// //   index: 0,
+// //   input: '1999-12-31',
+// //   groups: undefined ]
 
-// log(
-// matchObj,year,month,day
-//[ '1999-12-31',
-// '1999',
-// '12',
-// '31',
-// index: 0,
-// input: '1999-12-31',
-// groups: undefined ]//如果 无具名组 或者 具名组没有匹配 ，那么对应的groups对象属性会是 undefined 。
 
-//[ '1999-12-31',
-// '1999',
-// '12',
-// '31',
-// index: 0,
-// input: '1999-12-31',
-// groups: { year: '1999', month: '12', day: '31' } ] '1999' '12' '31'//具名组匹配
-// )
-
-// ## 7.具名组 作用 解构赋值和替换
+// ## 7.具名组作用：解构赋值和替换
 //使用解构赋值直接从匹配结果上为变量赋值，结构一致即可
-let { groups: { one, two } } = /^(?<one>.*):(?<two>.*)$/u.exec('foo:bar');
+// let { groups: { one, two } } = /^(?<one>.*):(?<two>.*)$/u.exec('foo:bar');
 //字符串替换时，使用$<组名>引用具名组。ES5只能用$1/$2/$3
-let re = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/u;
-log(
+// let re = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/u;
+// log(
   // one,//foo
   // two,//bar
   // '2015-01-02'.replace(re, '$<day>/$<month>/$<year>'),//02/01/2015
-)
+// )
 
 // ## 8. 正则表达式内部引用某个“具名组匹配”   \k<组名>
-const RE_TWICE = /^(?<word>[a-z]+)!\k<word>$/;
-log(
-  RE_TWICE.test('abc!abc'), // true
-  RE_TWICE.test('abc!ab') // false
-)
+// const RE_TWICE = /^(?<word>[a-z]+)!\k<word>$/;
+// log(
+//   RE_TWICE.test('abc!abc'), // true
+//   RE_TWICE.test('abc!ab') // false
+// )
 
 
 // ## 9. String.prototype.matchAll
